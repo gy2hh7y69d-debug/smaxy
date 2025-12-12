@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝓢𝓶𝓪𝔁𝔂</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('https://cdn.wallpapersafari.com/35/76/9pNxCE.jpg') no-repeat center center fixed;
+            background-size: cover;
+            overflow: hidden;
+        }
+
+        /* Intro Screen */
+        .intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            cursor: pointer;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .intro.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .intro-text {
+            font-size: 3rem;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-transform: lowercase;
+            letter-spacing: 2px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scale(1.05);
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .main-content.visible {
+            opacity: 1;
+        }
+
+        .name {
+            font-size: 5rem;
+            color: black;
+            text-shadow: 
+                0 0 10px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(0, 0, 0, 0.6),
+                0 0 30px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(0, 0, 0, 0.4),
+                0 0 50px rgba(0, 0, 0, 0.3),
+                0 0 60px rgba(0, 0, 0, 0.2);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 
+                    0 0 10px rgba(0, 0, 0, 0.8),
+                    0 0 20px rgba(0, 0, 0, 0.6),
+                    0 0 30px rgba(0, 0, 0, 0.5),
+                    0 0 40px rgba(0, 0, 0, 0.4);
+            }
+            to {
+                text-shadow: 
+                    0 0 20px rgba(0, 0, 0, 0.9),
+                    0 0 30px rgba(0, 0, 0, 0.7),
+                    0 0 40px rgba(0, 0, 0, 0.6),
+                    0 0 50px rgba(0, 0, 0, 0.5),
+                    0 0 60px rgba(0, 0, 0, 0.4),
+                    0 0 70px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        /* Profile Views Counter */
+        .views-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .views-icon {
+            width: 20px;
+            height: 20px;
+            fill: #fff;
+        }
+
+        .views-text {
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .views-count {
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        /* Secret Image Container */
+        .secret-popup {
+            position: fixed;
+            right: 20%;
+            top: 55%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            z-index: 200;
+        }
+
+        .secret-popup.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .secret-text {
+            font-size: 1.5rem;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-shadow: 
+                0 0 10px rgba(0, 0, 0, 0.9),
+                0 0 20px rgba(0, 0, 0, 0.7);
+            letter-spacing: 1px;
+        }
+
+        .secret-image {
+            width: 400px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Intro Screen -->
+    <div class="intro" id="intro" onclick="enterSite()">
+        <span class="intro-text">click skid</span>
+    </div>
+
+    <!-- Secret Image Popup -->
+    <div class="secret-popup" id="secretPopup">
+        <span class="secret-text">tea is your daddy</span>
+        <img class="secret-image" src="https://i.ibb.co/TM3pkGWQ/images-removebg-preview.png" alt="secret">
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <h1 class="name">𝓢𝓶𝓪𝔁𝔂</h1>
+        <div class="views-container">
+            <svg class="views-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+            </svg>
+            <span class="views-text">views:</span>
+            <span class="views-count" id="viewCount">0</span>
+        </div>
+    </div>
+
+    <script>
+        // Profile Views Counter
+        function getViews() {
+            let views = localStorage.getItem('profileViews');
+            if (views === null) {
+                views = 0;
+            }
+            return parseInt(views);
+        }
+
+        function incrementViews() {
+            let views = getViews() + 1;
+            localStorage.setItem('profileViews', views);
+            return views;
+        }
+
+        // Update view count on page load
+        const viewCount = incrementViews();
+        document.getElementById('viewCount').textContent = viewCount;
+
+        let siteEntered = false;
+
+        // Enter site function
+        function enterSite() {
+            const intro = document.getElementById('intro');
+            const mainContent = document.getElementById('mainContent');
+            
+            intro.classList.add('hidden');
+            setTimeout(() => {
+                mainContent.classList.add('visible');
+                siteEntered = true;
+            }, 500);
+        }
+
+        // Toggle secret image
+        function toggleSecret() {
+            const secretPopup = document.getElementById('secretPopup');
+            secretPopup.classList.toggle('visible');
+        }
+
+        // Click anywhere on screen to toggle secret (after intro is gone)
+        document.addEventListener('click', function(event) {
+            if (siteEntered) {
+                toggleSecret();
+            }
+        });
+
+        // Press any key to toggle secret
+        document.addEventListener('keydown', function(event) {
+            if (siteEntered) {
+                toggleSecret();
+            }
+        });
+    </script>
+</body>
+</html>
